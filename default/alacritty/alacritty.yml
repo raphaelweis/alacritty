@@ -49,7 +49,7 @@ font:
   normal:
     family: "JetBrainsMono Nerd Font"
     style: Medium
-  size: 12
+  size: 14
 window:
   opacity: 1
   padding:
