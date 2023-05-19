@@ -15,7 +15,7 @@ showHelp() {
 pickHost() {
   if [ $host = "default" ]; then
     mkdir -p $PROGRAM_TARGET
-    stow -d ./default $PROGRAM_NAME -t $PROGRAM_TARGET
+    stow -d $SCRIPT_PATH/default $PROGRAM_NAME -t $PROGRAM_TARGET
 
     if [ $? -eq 0 ]; then
       echo "Successfully created symbolic links for the $PROGRAM_NAME package"
@@ -40,8 +40,13 @@ deletePackage() {
   fi
 }
 
+# find program name with the name of the parent directory
+SCRIPT=$(realpath "$0")
+SCRIPT_PATH=$(dirname "$SCRIPT")
+SCRIPT_DIR=$(basename "$SCRIPT_PATH")
+
 # set variables
-PROGRAM_NAME="alacritty"
+PROGRAM_NAME=$SCRIPT_DIR
 PROGRAM_TARGET="$XDG_CONFIG_HOME/$PROGRAM_NAME"
 host=""
 
