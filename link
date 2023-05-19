@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# options
+showHelp() {
+  echo "This script uses GNU stow to create symbolic links for the configuration files in this directory"
+  echo
+  echo "Syntax: ./link [options]"
+  echo "options:"
+  echo "-h    Show this help message"
+  echo "-c    Choose a specific host configuration (default: general configuration)"
+  echo "-d    Delete the stow package"
+}
+
+pickHost() {
+  if [ $host = "default" ]; then
+    mkdir -p $PROGRAM_TARGET
+    stow -d ./default $PROGRAM_NAME -t $PROGRAM_TARGET
+    echo "Successfully created symbolic links for the $PROGRAM_NAME package"
+    exit 0
+  else
+    echo "Error: There is no configuration matching this host"
+    exit 1
+  fi
+}
+
+# set variables
+PROGRAM_NAME="alacritty"
+PROGRAM_TARGET="$XDG_CONFIG_HOME/$PROGRAM_NAME"
+host=""
+
+# read the options
+while getopts ":h:c:" option; do
+  case $option in
+    h) # display help
+      showHelp
+      exit 0;;
+    c) # specify host
+      host=$OPTARG;;
+    :) # missing argument for option
+      echo "Error: Option -$OPTARG requires an argument"
+      exit;;
+    \?) # invalid option
+      echo "Error: Invalid option"
+      exit 1;;
+  esac
+done
+
+# set host
+if [ -n "$host" ]; then
+  pickHost
+fi
+
+# show help if no options have been passed in
+showHelp
