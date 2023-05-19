@@ -43,12 +43,14 @@ deletePackage() {
 # find program name with the name of the parent directory
 SCRIPT=$(realpath "$0")
 SCRIPT_PATH=$(dirname "$SCRIPT")
-SCRIPT_DIR=$(basename "$SCRIPT_PATH")
+PROGRAM_NAME=$(basename "$SCRIPT_PATH")
 
 # set variables
-PROGRAM_NAME=$SCRIPT_DIR
-PROGRAM_TARGET="$XDG_CONFIG_HOME/$PROGRAM_NAME"
 host=""
+
+# resolve target by resolving the contents of the target.txt file
+TARGET_FILE_CONTENT=$(cat $SCRIPT_PATH/target.txt)
+PROGRAM_TARGET=$(eval "echo \"$TARGET_FILE_CONTENT\"")/$PROGRAM_NAME
 
 # read the options
 while getopts ":h:c:t:d" option; do
