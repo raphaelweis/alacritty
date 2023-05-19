@@ -15,7 +15,7 @@ pickHost() {
   if [ $host = "default" ]; then
     mkdir -p $PROGRAM_TARGET
     stow -d ./default $PROGRAM_NAME -t $PROGRAM_TARGET
-    echo "Successfully created symbolic links for the $PROGRAM_NAME package"
+    echo "Successfully created symbolic links for the $PROGRAM_NAME package - the configuration is $host"
     exit 0
   else
     echo "Error: There is no configuration matching this host"
