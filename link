@@ -4,22 +4,39 @@
 showHelp() {
   echo "This script uses GNU stow to create symbolic links for the configuration files in this directory"
   echo
-  echo "Syntax: ./link [options]"
+  echo "Syntax: link [options]"
   echo "options:"
   echo "-h    Show this help message"
   echo "-c    Choose a specific host configuration (default: general configuration)"
-  echo "-d    Delete the stow package"
+  echo "-t    Override the default target directory (XDG_CONFIG_HOME/PROGRAM_NAME by default)"
+  echo "-d    Delete the directory linked to this repository"
 }
 
 pickHost() {
   if [ $host = "default" ]; then
     mkdir -p $PROGRAM_TARGET
     stow -d ./default $PROGRAM_NAME -t $PROGRAM_TARGET
-    echo "Successfully created symbolic links for the $PROGRAM_NAME package - the configuration is $host"
+
+    if [ $? -eq 0 ]; then
+      echo "Successfully created symbolic links for the $PROGRAM_NAME package"
+      echo "    - The configuration is $host"
+      echo "    - The target is $PROGRAM_TARGET"
+    else
+      echo "Error: Failed to create symbolic links in configuration $host"
+      exit 1
+    fi
+
     exit 0
   else
     echo "Error: There is no configuration matching this host"
     exit 1
+  fi
+}
+
+deletePackage() {
+  rm -r $PROGRAM_TARGET
+  if [ $? -eq 0 ]; then
+    echo "$PROGRAM_NAME package successfully deleted"
   fi
 }
 
@@ -29,13 +46,18 @@ PROGRAM_TARGET="$XDG_CONFIG_HOME/$PROGRAM_NAME"
 host=""
 
 # read the options
-while getopts ":h:c:" option; do
+while getopts ":h:c:t:d" option; do
   case $option in
     h) # display help
       showHelp
       exit 0;;
     c) # specify host
       host=$OPTARG;;
+    t) # override target
+      PROGRAM_TARGET=$OPTARG;;
+    d) # delete stow packages
+      deletePackage
+      exit 0;;
     :) # missing argument for option
       echo "Error: Option -$OPTARG requires an argument"
       exit;;
