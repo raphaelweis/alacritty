@@ -38,18 +38,18 @@ cursor:
 draw_bold_text_with_bright_colors: true
 font:
   bold:
-    family: "AnonymicePro Nerd Font"
+    family: "MesloLGS Nerd Font"
     style: Bold
   bold_italic:
-    family: "AnonymicePro Nerd Font"
+    family: "MesloLGS Nerd Font"
     style: BoldItalic
   italic:
-    family: "AnonymicePro Nerd Font"
+    family: "MesloLGS Nerd Font"
     style: MediumItalic
   normal:
-    family: "AnonymicePro Nerd Font"
+    family: "MesloLGS Nerd Font"
     style: medium
-  size: 18
+  size: 16
 window:
   opacity: 1
   padding:
