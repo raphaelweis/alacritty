@@ -1,5 +1,8 @@
 import:
-  - ..\..\default\alacritty\alacritty.yml
+  - C:\Users\rapha\Documents\windows-configuration\alacritty\default\alacritty\alacritty.yml
 
 shell:
   program: pwsh.exe
+
+font:
+  size: 14

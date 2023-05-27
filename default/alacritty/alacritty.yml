@@ -48,7 +48,7 @@ font:
     style: MediumItalic
   normal:
     family: "MesloLGS Nerd Font"
-    style: medium
+    style: Regular
   size: 16
 window:
   opacity: 1
