@@ -1,0 +1,5 @@
+import:
+  - ..\..\default\alacritty\alacritty.yml
+
+shell:
+  program: pwsh.exe
