@@ -45,7 +45,7 @@ font:
   normal:
     family: "JetBrainsMonoNL NF"
     style: Regular
-  size: 12
+  size: 14
 window:
   opacity: 1
   padding:
