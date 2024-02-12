@@ -3,4 +3,5 @@ import = [
 ]
 
 [font]
+normal = { family = "JetBrainsMonoNL NF" }
 size = 14
